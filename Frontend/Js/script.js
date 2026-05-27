@@ -8,7 +8,6 @@ let pokemonsList = [];
 
 function renderPokemons(list) {
     list.forEach(pokemon => {
-        console.log(pokemon)
         pokemonList.innerHTML +=
 
             `<div class = "col-2">
@@ -21,7 +20,7 @@ function renderPokemons(list) {
                 </div>
             </div>`
     });
-}
+};
 
 async function getPokemons() {
     const request = await fetch("https://pokeapi.co/api/v2/pokemon?limit=150");
