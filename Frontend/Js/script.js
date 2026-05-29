@@ -10,17 +10,33 @@ function renderPokemons(list) {
     list.forEach(pokemon => {
         pokemonList.innerHTML +=
 
-            `<div class = "col-2">
-                <div class = "card">
-                    <img src = "${pokemon.sprites.front_default}" class = "card-img-top">
-                        <div class = "card-body">
-                                <p>${pokemon.id}</p>
-                                <h5 class = "card-title">${pokemon.nome}</h5>
-                        </div>
-                </div>
+            `<div class="card col-2" style="width: 14rem;">
+                <img src="${pokemon.sprites.front_default}" class="card-img-top" alt="">
+                    <div class="card-body">
+                        <a class="btn btn-secondary" >${pokemon.id}</a>
+                        <button onclick="openModal(${pokemon.id})" class="btn btn-secondary">${pokemon.name}</button>
+                    </div>
             </div>`
     });
 };
+
+function openModal(id) {
+    const pokemon = pokemonsList.find(Modal => Modal.id === id);
+    console.log(pokemon);
+
+    const modal = new bootstrap.Modal(document.getElementById("modal"));
+
+    document.getElementById("pokemon.name");
+    document.getElementById("pokemon.height");
+    document.getElementById("pokemon.weight");
+    // Usar map para descobrir o tipo do pokemon
+
+    modal.show();
+};
+
+// function searchInput(text){
+
+// }
 
 async function getPokemons() {
     const request = await fetch("https://pokeapi.co/api/v2/pokemon?limit=150");
@@ -36,9 +52,6 @@ async function getPokemons() {
 };
 
 function updateList() {
-};
-
-function openModal(id) {
 };
 
 getPokemons();
