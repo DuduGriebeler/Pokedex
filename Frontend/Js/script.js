@@ -43,7 +43,7 @@ function updateList() {
     let listaFiltrada = [...pokemonsList];
 
     const termoDeBusca = searchInput.value.toLowerCase().trim();
-    if (termoDeBusca !== "") {
+    if (termoDeBusca !== "") {  
         listaFiltrada = listaFiltrada.filter(pokemon =>
             pokemon.name.toLowerCase().includes(termoDeBusca) ||
             pokemon.id.toString() === termoDeBusca
