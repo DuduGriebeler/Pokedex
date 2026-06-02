@@ -6,11 +6,11 @@ const spinner = document.getElementById("spinner");
 
 let pokemonsList = [];
 
-function showspinner(){
+function showspinner() {
     spinner.classList.remove("d-none");
 }
 
-function hidespinner(){
+function hidespinner() {
     spinner.classList.add("d-none");
 }
 
@@ -113,7 +113,7 @@ async function getPokemons() {
 
     showspinner();
 
-    const requisicaoInicial = await fetch("https://pokeapi.co/api/v2/pokemon?limit=250");
+    const requisicaoInicial = await fetch("https://pokeapi.co/api/v2/pokemon?limit=2250");
     const respostaInicial = await requisicaoInicial.json();
 
     const listaDePromessas = respostaInicial.results.map(async (pokemonGenerico) => {
