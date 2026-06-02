@@ -7,11 +7,11 @@ const spinner = document.getElementById("spinner");
 let pokemonsList = [];
 
 function showspinner(){
-    spinner.classList.remove("d-done");
+    spinner.classList.remove("d-none");
 }
 
 function hidespinner(){
-    spinner.classList.add("d-done");
+    spinner.classList.add("d-none");
 }
 
 
