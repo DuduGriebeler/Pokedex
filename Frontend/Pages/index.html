@@ -18,12 +18,12 @@
 
 <body>
 
-    <header></header>
-
-    <main>
+    <header>
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <div class="container">
-                <a class="navbar-brand" href="">Pokédex</a>
+                <div class="logo">
+                    <a href=""><img class="logo-img" src="../Imagem/logo_pokemon.png" width="200"></a>
+                </div>
                 <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#menuNavegacao">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -66,13 +66,23 @@
                 </div>
             </div>
         </nav>
+    </header>
 
+    <main>
         <div class="container mt-4">
             <div id="pokemonList" class="row justify-content-center"></div>
         </div>
+
+        <div id="spinner" class="d-none" class="text-center" >
+            <div class="spinner-border text-secondary" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+        </div>
+
     </main>
 
-    <footer></footer>
+    <footer>
+    </footer>
 
     <div class="modal fade" tabindex="-1" id="modal">
         <div class="modal-dialog modal-dialog-centered">
@@ -84,18 +94,30 @@
                 </div>
 
                 <div class="modal-body text-center fs-5">
-                    <p id="modalHeight">Altura: </p>
-                    <p id="modalWeight">Peso: </p>
-                    <p id="modalTypes">Tipos: </p>
-                </div>
+                    <div class="modal-body text-center fs-5">
+                        <div class="mb-3">
+                            <img id="modalImagem" src="" alt="Imagem do Pokémon" class="img-fluid"
+                                style="max-height: 200px;">
+                        </div>
+                        <p id="modalHeight">Altura</p>
+                        <p id="modalWeight">Peso</p>
+                        <p id="modalTypes">Tipos</p>
+                        <p id="modalAbility">Habilidade</p>
+                        <p id="modalHp">HP</p>
+                        <p id="modalAttack">Ataque</p>
+                        <p id="modalDefense">Defesa</p>
+                        <p id="modalSpecialAttack">Ataque Especial</p>
+                        <p id="modalSpecialDefense">Defesa Especial</p>
+                        <p id="modalSpeed">Velocidade</p>
+                    </div>
 
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-                </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                    </div>
 
+                </div>
             </div>
         </div>
-    </div>
 
 </body>
 

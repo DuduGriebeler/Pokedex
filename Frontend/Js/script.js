@@ -2,8 +2,18 @@ const pokemonList = document.getElementById("pokemonList");
 const searchInput = document.getElementById("searchInput");
 const typeFilter = document.getElementById("typeFilter");
 const sortOrder = document.getElementById("sortOrder");
+const spinner = document.getElementById("spinner");
 
 let pokemonsList = [];
+
+function showspinner(){
+    spinner.classList.remove("d-done");
+}
+
+function hidespinner(){
+    spinner.classList.add("d-done");
+}
+
 
 function renderPokemons(listaDePokemons) {
     pokemonList.innerHTML = "";
@@ -27,12 +37,30 @@ function openModal(idDoPokemonSelecionado) {
 
     if (!pokemonEncontrado) return;
 
-    const listaDeTiposFormatada = pokemonEncontrado.types.map(objetoTipo => objetoTipo.type.name).join(', ');
+    const urlImagem = pokemonEncontrado.sprites?.other['official-artwork']?.front_default || pokemonEncontrado.sprites?.front_default;
+    document.getElementById("modalImagem").src = urlImagem;
+
+    const listaDeTipos = pokemonEncontrado.types.map(objetoTipo => objetoTipo.type.name).join(', ');
+    const listaDeHabilidades = pokemonEncontrado.abilities ? pokemonEncontrado.abilities.map(a => a.ability.name).join(', ') : 'Nenhum';
+
+    const hp = pokemonEncontrado.stats.find(stats => stats.stat.name === 'hp')?.base_stat || 0;
+    const attack = pokemonEncontrado.stats.find(stats => stats.stat.name === 'attack')?.base_stat || 0;
+    const defense = pokemonEncontrado.stats.find(stats => stats.stat.name === 'defense')?.base_stat || 0;
+    const specialAttack = pokemonEncontrado.stats.find(stats => stats.stat.name === 'special-attack')?.base_stat || 0;
+    const specialDefense = pokemonEncontrado.stats.find(stats => stats.stat.name === 'special-defense')?.base_stat || 0;
+    const speed = pokemonEncontrado.stats.find(stats => stats.stat.name === 'speed')?.base_stat || 0;
 
     document.getElementById("modalName").innerText = pokemonEncontrado.name.toUpperCase();
     document.getElementById("modalHeight").innerText = `Altura: ${pokemonEncontrado.height / 10} m`;
     document.getElementById("modalWeight").innerText = `Peso: ${pokemonEncontrado.weight / 10} kg`;
-    document.getElementById("modalTypes").innerText = `Tipos: ${listaDeTiposFormatada}`;
+    document.getElementById("modalTypes").innerText = `Tipo: ${listaDeTipos}`;
+    document.getElementById("modalAbility").innerText = `Habilidade: ${listaDeHabilidades}`;
+    document.getElementById("modalHp").innerText = `HP: ${hp}`;
+    document.getElementById("modalAttack").innerText = `Ataque: ${attack}`;
+    document.getElementById("modalDefense").innerText = `Defesa: ${defense}`;
+    document.getElementById("modalSpecialAttack").innerText = `Ataque Especial: ${specialAttack}`;
+    document.getElementById("modalSpecialDefense").innerText = `Defesa Especial: ${specialDefense}`;
+    document.getElementById("modalSpeed").innerText = `Velocidade: ${speed}`;
 
     const modalElement = document.getElementById("modal");
     const modal = new bootstrap.Modal(modalElement);
@@ -43,7 +71,7 @@ function updateList() {
     let listaFiltrada = [...pokemonsList];
 
     const termoDeBusca = searchInput.value.toLowerCase().trim();
-    if (termoDeBusca !== "") {  
+    if (termoDeBusca !== "") {
         listaFiltrada = listaFiltrada.filter(pokemon =>
             pokemon.name.toLowerCase().includes(termoDeBusca) ||
             pokemon.id.toString() === termoDeBusca
@@ -82,7 +110,10 @@ typeFilter.addEventListener("change", updateList);
 sortOrder.addEventListener("change", updateList);
 
 async function getPokemons() {
-    const requisicaoInicial = await fetch("https://pokeapi.co/api/v2/pokemon?limit=150");
+
+    showspinner();
+
+    const requisicaoInicial = await fetch("https://pokeapi.co/api/v2/pokemon?limit=250");
     const respostaInicial = await requisicaoInicial.json();
 
     const listaDePromessas = respostaInicial.results.map(async (pokemonGenerico) => {
@@ -93,6 +124,8 @@ async function getPokemons() {
     pokemonsList = await Promise.all(listaDePromessas);
 
     renderPokemons(pokemonsList);
+
+    hidespinner();
 }
 
 getPokemons();
